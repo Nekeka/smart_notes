@@ -3,6 +3,21 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWid
 
 
 import json
+'''
+
+note = {
+    "Ласкаво просимо!" : {
+        "текст" : "Це найкращий додаток для заміток у світі!",
+        "теги" : ["добро", "інструкція"]
+    }
+}
+
+
+with open("notes_data.json", "w", encoding="utf-8") as file:
+   json.dump(note, file, ensure_ascii=False)
+
+'''
+
 
 
 app = QApplication([])
@@ -72,6 +87,23 @@ layout_notes.addLayout(col_2, stretch = 1)
 notes_win.setLayout(layout_notes)
 
 
+def show_note():
+    ...
+
+
 # запуск програми
 notes_win.show()
+
+
+with open("notes_data.json", "r") as file:
+    notes = json.load(file)
+    print(f"notes onload {notes}")
+list_notes.addItems(notes)
+
+
+
+
+
+
+
 app.exec_()
