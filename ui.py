@@ -88,7 +88,8 @@ notes_win.setLayout(layout_notes)
 
 
 def show_note():
-    ...
+    key = list_notes.selectedItems()[0].text()
+    print(key)
 
 
 # запуск програми
@@ -102,5 +103,5 @@ list_notes.addItems(notes)
 
 
 
-
+list_notes.itemClicked.connect(show_note)
 app.exec_()
