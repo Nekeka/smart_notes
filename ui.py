@@ -95,13 +95,10 @@ def show_note():
 notes_win.show()
 
 
-with open("notes_data.json", "r") as file:
+with open("notes_data.json", "r", encoding="utf-8") as file:
     notes = json.load(file)
     print(f"notes onload {notes}")
 list_notes.addItems(notes)
-
-
-
 
 
 
