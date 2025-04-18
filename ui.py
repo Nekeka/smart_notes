@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout
 
 
 import json
@@ -86,10 +86,19 @@ layout_notes.addLayout(col_1, stretch = 2)
 layout_notes.addLayout(col_2, stretch = 1)
 notes_win.setLayout(layout_notes)
 
-
+###############
 def show_note():
     key = list_notes.selectedItems()[0].text()
     print(key)
+
+def add_note():
+    note_name, ok = QInputDialog.getText(notes_win, "Додати замітку", "Назва замітки")
+    if ok and note_name:
+        list_notes.addItem(note_name)
+        notes[note_name] = {"текст": "","теги": []}
+        list_tags.addItem = notes[note_name]["теги"]
+        print("after add note", notes)
+
 
 
 # запуск програми
@@ -99,9 +108,11 @@ notes_win.show()
 with open("notes_data.json", "r", encoding="utf-8") as file:
     notes = json.load(file)
     print(f"notes onload {notes}")
+
+
 list_notes.addItems(notes)
 
-
-
 list_notes.itemClicked.connect(show_note)
+button_note_create.clicked.connect(add_note)
+
 app.exec_()
