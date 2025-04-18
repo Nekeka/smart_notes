@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWid
 
 import json
 
-
+'''
 note = {
     "Ласкаво просимо!" : {
         "текст" : "Це найкращий додаток для заміток у світі!",
@@ -16,6 +16,7 @@ note = {
 with open("notes_data.json", "w", encoding="utf-8") as file:
    json.dump(note, file, ensure_ascii=False)
 
+'''
 
 
 
@@ -101,7 +102,12 @@ def add_note():
 def save_note():
     if list_notes.selectedItems():
         text = field_text.toPlainText()
-        
+        key = list_notes.selectedItems()[0].text()
+        notes[key]["текст"] = text
+        with open("notes_data.json", "w", encoding="utf-8") as file:
+            json.dump(notes, file, ensure_ascii=False)
+    else:
+        print("замітка не обрана")
 
 def del_note():
     if list_notes.selectedItems():
@@ -113,7 +119,7 @@ def del_note():
         list_tags.clear()
         field_text.clear()
             #
-        with open("notes_data.json", "w", encoding="utf-8") as file:
+        with open("notes_data.json", "w", encoding="utf-8") as file: #В ОКРЕМИЙ МЕТОД 
             json.dump(notes, file, ensure_ascii=False)
 
         list_notes.addItems(notes)
@@ -138,4 +144,5 @@ list_notes.addItems(notes)
 list_notes.itemClicked.connect(show_note)
 button_note_create.clicked.connect(add_note)
 button_note_del.clicked.connect(del_note)
+button_note_save.clicked.connect(save_note)
 app.exec_()
