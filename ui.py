@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWid
 
 
 import json
-'''
+
 
 note = {
     "Ласкаво просимо!" : {
@@ -16,7 +16,6 @@ note = {
 with open("notes_data.json", "w", encoding="utf-8") as file:
    json.dump(note, file, ensure_ascii=False)
 
-'''
 
 
 
@@ -99,6 +98,30 @@ def add_note():
         list_tags.addItem = notes[note_name]["теги"]
         print("after add note", notes)
 
+def save_note():
+    if list_notes.selectedItems():
+        text = field_text.toPlainText()
+        
+
+def del_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        print("deleted note:", key)
+        del notes[key]
+            #
+        list_notes.clear()
+        list_tags.clear()
+        field_text.clear()
+            #
+        with open("notes_data.json", "w", encoding="utf-8") as file:
+            json.dump(notes, file, ensure_ascii=False)
+
+        list_notes.addItems(notes)
+        print("notes after deleting", notes)
+    else:
+        print("не обрана замітка")
+        
+
 
 
 # запуск програми
@@ -114,5 +137,5 @@ list_notes.addItems(notes)
 
 list_notes.itemClicked.connect(show_note)
 button_note_create.clicked.connect(add_note)
-
+button_note_del.clicked.connect(del_note)
 app.exec_()
